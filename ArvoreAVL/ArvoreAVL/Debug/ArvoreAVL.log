@@ -1,13 +1,20 @@
-﻿  stdafx.cpp
-  NoArvoreBinariaAVL.cpp
+﻿  NoArvoreBinariaAVL.cpp
 c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\noarvorebinariaavl.cpp(13): fatal error C1010: fim de arquivo inesperado durante procura por cabeçalho pré-compilado. Você esqueceu de adicionar '#include "stdafx.h"' à sua fonte?
-  main.cpp
+  InfoArvoreBinariaAVL.cpp
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\infoarvorebinariaavl.cpp(17): fatal error C1010: fim de arquivo inesperado durante procura por cabeçalho pré-compilado. Você esqueceu de adicionar '#include "stdafx.h"' à sua fonte?
   ArvoreBinariaAVL.cpp
-c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.h(9): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
-c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.h(10): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
-c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.h(14): error C2143: erro de sintaxe: ';' ausente antes de '}'
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\noarvorebinariaavl.h(11): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\noarvorebinariaavl.h(13): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\noarvorebinariaavl.h(15): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\noarvorebinariaavl.h(16): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\noarvorebinariaavl.h(26): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.h(11): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.h(12): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.cpp(13): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.cpp(14): error C2065: 'null': identificador não declarado
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.cpp(15): error C2059: erro de sintaxe: ')'
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.cpp(18): warning C4290: especificação de exceção de C++ ignorada exceto para indicar que a função não é __declspec(nothrow)
+c:\users\u16191\desktop\arvoreavl\arvoreavl\arvoreavl\arvorebinariaavl.cpp(25): error C2255: 'friend': não permitido fora de uma definição de classe
   MinhaInfo.cpp
 c:\users\u16191\desktop\arvoreenaria-master\arvoreenaria\arvoreenaria\minhainfo.cpp(39): fatal error C1010: fim de arquivo inesperado durante procura por cabeçalho pré-compilado. Você esqueceu de adicionar '#include "stdafx.h"' à sua fonte?
-  InfoArvoreEnaria.cpp
-c:\users\u16191\desktop\arvoreenaria-master\arvoreenaria\arvoreenaria\infoarvoreenaria.cpp(17): fatal error C1010: fim de arquivo inesperado durante procura por cabeçalho pré-compilado. Você esqueceu de adicionar '#include "stdafx.h"' à sua fonte?
   Gerando Código...

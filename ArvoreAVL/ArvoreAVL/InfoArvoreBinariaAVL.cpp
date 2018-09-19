@@ -2,15 +2,15 @@
 #include "InfoArvoreBinariaAVL.h"
 
 
-InfoArvoreEnaria::InfoArvoreEnaria()
+InfoArvoreBinariaAVL::InfoArvoreEnaria()
 {
 }
 
 
-InfoArvoreEnaria::~InfoArvoreEnaria()
+InfoArvoreBinariaAVL::~InfoArvoreEnaria()
 {
 }
 
-ostream& operator<< (ostream& os, InfoArvoreEnaria& info) throw() {
+ostream& operator<< (ostream& os, InfoArvoreBinariaAVL& info) throw() {
 	return((info).print(os));
 }
