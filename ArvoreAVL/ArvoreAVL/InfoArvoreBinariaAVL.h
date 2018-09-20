@@ -1,6 +1,6 @@
 #pragma once
-#ifndef INFOARVOREBinariaAVL_H_INCLUDED
-#define INFOARVOREBinariaAVL_H_INCLUDED
+#ifndef INFOARVOREBINARIAAVL_H_INCLUDED
+#define INFOARVOREBINARIAAVL_H_INCLUDED
 #include <iostream>
 using namespace std;
 class InfoArvoreBinariaAVL

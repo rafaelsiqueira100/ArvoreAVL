@@ -3,6 +3,8 @@ using namespace std;
 #include<iostream>
 #include "NoArvoreBinariaAVL.h"
 #include "InfoArvoreBinariaAVL.h"
+#ifndef ARVOREBINARIAAVL_H_INCLUDED
+#define ARVOREBINARIAAVL_H_INCLUDED
 class ArvoreBinariaAVL
 {
 public:
@@ -12,7 +14,9 @@ public:
 	void remover(InfoArvoreBinariaAVL*) throw(char*);
 	friend ostream& operator<< (ostream&, const ArvoreBinariaAVL&) throw();
 	char haInfo(InfoArvoreBinariaAVL*);
+	
 private:
 	NoArvoreBinariaAVL* raiz;
+	void balancear() throw();
 };
-
+#endif

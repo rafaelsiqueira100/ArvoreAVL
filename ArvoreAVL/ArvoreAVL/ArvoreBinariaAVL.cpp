@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "ArvoreBinariaAVL.h"
 
 
@@ -16,6 +15,7 @@ void ArvoreBinariaAVL::inserir(InfoArvoreBinariaAVL* info) throw(char*) {
 		raiz = new NoArvoreBinariaAVL();
 	this->raiz->inserirVetorOrdem(info);
 
+	this->balancear();
 }
 void ArvoreBinariaAVL::remover(InfoArvoreBinariaAVL* info) throw(char*) {
 	if (this->raiz == nullptr) {
@@ -25,6 +25,8 @@ void ArvoreBinariaAVL::remover(InfoArvoreBinariaAVL* info) throw(char*) {
 	this->raiz->removerVetorOrdem(info);
 	if (this->raiz->isVazio())
 		this->raiz == nullptr;
+
+	this->balancear();
 }
 char ArvoreBinariaAVL::haInfo(InfoArvoreBinariaAVL* info) {
 	if (this->raiz == nullptr)
@@ -36,4 +38,11 @@ ostream& operator<< (ostream& os, const ArvoreBinariaAVL& arvore) throw() {
 	if (arvore.raiz == nullptr)
 		return os << "{  }" << '\n';
 	return	os << '{' << *(arvore.raiz) << '}' << '\n';
+}
+
+
+void ArvoreBinariaAVL::balancear() throw(){
+	if (this->raiz == nullptr)
+		return;
+	this->raiz->balancear();
 }

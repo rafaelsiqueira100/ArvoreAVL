@@ -1,13 +1,12 @@
-
 #include "InfoArvoreBinariaAVL.h"
 
 
-InfoArvoreBinariaAVL::InfoArvoreEnaria()
+InfoArvoreBinariaAVL::InfoArvoreBinariaAVL()
 {
 }
 
 
-InfoArvoreBinariaAVL::~InfoArvoreEnaria()
+InfoArvoreBinariaAVL::~InfoArvoreBinariaAVL()
 {
 }
 

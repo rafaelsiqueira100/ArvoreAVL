@@ -1,5 +1,5 @@
 #include "NoArvoreBinariaAVL.h"
-
+#include <math.h>
 
 
 NoArvoreBinariaAVL::NoArvoreBinariaAVL()
@@ -17,6 +17,9 @@ NoArvoreBinariaAVL::NoArvoreBinariaAVL(const NoArvoreBinariaAVL& noBase) throw(c
 	this->esq = nullptr;
 	this->dir = nullptr;
 	this->info = nullptr;
+	this->equilibrio = 0;
+	
+	this->equilibrio = noBase.getEquilibrio();
 	if (noBase.info != nullptr) {
 		this->info = noBase.info;
 	}
@@ -26,6 +29,7 @@ NoArvoreBinariaAVL::NoArvoreBinariaAVL(const NoArvoreBinariaAVL& noBase) throw(c
 	if (noBase.getPtrNoFilho(1) != nullptr) {//dir não é nulo
 		this->dir = new NoArvoreBinariaAVL(*(noBase.getPtrNoFilho(1)));
 	}
+	//balancear();
 	
 }
 
@@ -43,15 +47,23 @@ NoArvoreBinariaAVL* NoArvoreBinariaAVL::getPtrNoFilho(unsigned char indicePtr) c
 		break;
 	}
 }
-void NoArvoreBinariaAVL::setPtrNoFilho(NoArvoreBinariaAVL* novoNo, unsigned char indFilho) const throw(char*) {
+void NoArvoreBinariaAVL::setPtrNoFilho(NoArvoreBinariaAVL* novoNo, unsigned char indFilho) throw(char*) {
 	if (novoNo == nullptr)
 		throw("Novo nó é nulo!");
 	switch (indFilho) {
 	case 0:
-		*(this->esq) = *novoNo;
+		if (this->esq == nullptr)
+			this->esq = new NoArvoreBinariaAVL(*novoNo);
+		else
+			*(this->esq) = *novoNo;
+		//balancear();
 		break;
 	case 1:
-		*(this->dir) = *novoNo;
+		if(this->dir == nullptr)
+			this->dir = new NoArvoreBinariaAVL(*novoNo);
+		else
+			*(this->dir) = *novoNo;
+		//balancear();
 		break;
 	default:
 		throw("Índice maior que 1 em árvore binária !!");
@@ -71,6 +83,7 @@ char NoArvoreBinariaAVL::inserirVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 				if (this->esq == nullptr) {
 					this->esq = new NoArvoreBinariaAVL();
 					this->esq->info = info;
+					balancear();
 					return 1;
 				}
 				else
@@ -80,6 +93,7 @@ char NoArvoreBinariaAVL::inserirVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 				if (this->dir == nullptr) {
 					this->dir = new NoArvoreBinariaAVL();
 					this->dir->info = info;
+					balancear();
 					return 1;
 				}
 				else
@@ -92,21 +106,25 @@ char NoArvoreBinariaAVL::inserirVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 		}
 		else {
 			this->info = /*new InfoArvoreEnaria(**/info/*)*/;
-
+			balancear();
 			return 1;
 		}
 	
 }
 char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
-	if (info == nullptr)
+	if (info == nullptr) 
 		return -1;
+	
 	if (this->isFolha()) {
 		if (*info == *(this->info)) {
 			this->info = nullptr;
+			balancear();
 			return 1;
 		}
-		else
+		else {
+			balancear();
 			return 0;
+		}
 	}
 	//se o fluxo de execução chegou aqui, então não é folha
 	if (*info == *(this->info)) {
@@ -114,17 +132,22 @@ char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 		*(this->info) = *(acharInfoPorLugar());
 	}
 	if (*info < *(this->info)) {
-		if (this->esq == nullptr)
+		if (this->esq == nullptr) {
+			balancear();
 			return -2;
+		}
 		else
 			this->esq->removerVetorOrdem(info);
 	}
 	if (*info > *(this->info)) {
-		if (this->dir == nullptr)
+		if (this->dir == nullptr) {
+			balancear();
 			return -3;
+		}
 		else
 			this->dir->removerVetorOrdem(info);
 	}
+	
 }
 char NoArvoreBinariaAVL::isCheio() const throw() {
 	return this->info != nullptr;
@@ -222,15 +245,7 @@ ostream& operator<< (ostream& os, const NoArvoreBinariaAVL& no) throw() {
 	int indicePtr = 0;
 	int indiceInfo = 0;
 
-	
 
-	if (no.getPtrNoFilho(0) != nullptr) {
-		os << '(' << *(no.getPtrNoFilho(0)) << ')';
-	}
-	else {
-		os << "(  ||  )";
-	}
-		
 	if (no.getPtrInfo(0) != nullptr) {
 		InfoArvoreBinariaAVL* info = (no.getPtrInfo(0));
 		os << "  " << (*(info)) << "  ";
@@ -238,13 +253,149 @@ ostream& operator<< (ostream& os, const NoArvoreBinariaAVL& no) throw() {
 	else {
 		os << "  **  ";
 	}
-	
+
+
+	os << '[';
+	if (no.getPtrNoFilho(0) != nullptr) {
+		os << '(' << *(no.getPtrNoFilho(0)) << ')';
+	}
+	else {
+		os << "";
+	}
+	os << " , ";
 	
 	if (no.getPtrNoFilho(1) != nullptr) {
 		os << '(' << *(no.getPtrNoFilho(1)) << ')';
 	}
 	else {
+		os << "";
+	}
+	os << ']';
+	/*
+	if (no.getPtrInfo(0) != nullptr) {
+		InfoArvoreBinariaAVL* info = (no.getPtrInfo(0));
+		os << "  " << (*(info)) << "  ";
+	}
+	else {
+		os << "  **  ";
+	}
+	os << '\n';
+	os << "|       \ \n";
+	os << "V        _/";
+	os << '\n';
+	if (no.getPtrNoFilho(0) != nullptr) {
+		
+		os << '(' << *(no.getPtrNoFilho(0)) << ')';
+	}
+	else {
 		os << "(  ||  )";
 	}
+	os << "        ";
+	if (no.getPtrNoFilho(1) != nullptr) {
+		os << '(' << *(no.getPtrNoFilho(1)) << ')';
+	}
+	else {
+		os << "(  ||  )";
+	}*/
 	return os;
+}
+char NoArvoreBinariaAVL::calcularEquilibrio() throw() {
+	char niveisEsq(0), niveisDir(0);
+	if (this->isFolha()) {
+		this->equilibrio = 0;
+	}
+	if (this->esq == nullptr) {
+		this->equilibrio = this->getNiveis();
+	}
+	if (this->dir == nullptr) {
+		this->equilibrio = -(this->getNiveis());
+	}
+	if (this->esq != nullptr && this->dir != nullptr) {
+		equilibrio = this->dir->getNiveis() - this->esq->getNiveis();
+	}
+	return this->equilibrio;
+}
+char NoArvoreBinariaAVL::getNiveis()const throw() {
+	if (this->isFolha())
+		return 0;
+	if (this->esq == nullptr && this->dir != nullptr)
+		return this->dir->getNiveis() + 1;
+	if (this->dir == nullptr && this->esq != nullptr)
+		return this->esq->getNiveis() + 1;
+	char niveisEsq(0), niveisDir(0);
+	niveisEsq = this->esq->getNiveis();
+	niveisDir = this->dir->getNiveis();
+	return niveisEsq > niveisDir ? niveisEsq + 1 : niveisDir + 1;
+}
+char NoArvoreBinariaAVL::getEquilibrio() const throw() {
+	return this->equilibrio;
+}
+void NoArvoreBinariaAVL::balancear() throw() {
+	this->calcularEquilibrio();
+	if (this->equilibrio <= 1 && this->equilibrio >= -1) {
+		if (this->esq != nullptr)
+			this->esq->balancear();
+		if (this->dir != nullptr)
+			this->dir->balancear();
+	}
+	if (this->equilibrio > 1) {
+		if (this->dir->getEquilibrio() < 0)
+			rotacaoDuplaEsquerda();
+		else
+			rotacaoEsquerda();
+		if (this->esq != nullptr)
+			this->esq->balancear();
+		if (this->dir != nullptr)
+			this->dir->balancear();
+	}
+	if (this->equilibrio < -1) {
+		if (this->esq->getEquilibrio() > 0)
+			rotacaoDuplaDireita();
+		else
+			rotacaoDireita();
+		if (this->esq != nullptr)
+			this->esq->balancear();
+		if (this->dir != nullptr)
+			this->dir->balancear();
+
+	}
+	if (this->esq != nullptr)
+		this->esq->balancear();
+	if (this->dir != nullptr)
+		this->dir->balancear();
+	this->calcularEquilibrio();
+}
+void NoArvoreBinariaAVL::rotacaoEsquerda() throw() {
+	NoArvoreBinariaAVL* novaRaiz = new NoArvoreBinariaAVL(*(this->dir));
+	novaRaiz->setPtrNoFilho(new NoArvoreBinariaAVL(*this), 0);
+
+	novaRaiz->esq->dir = this->dir->esq;
+	this->dir->esq = nullptr;
+	this->dir = novaRaiz->dir;
+	this->esq = novaRaiz->esq;
+	this->info = novaRaiz->info;
+
+	this->calcularEquilibrio();
+
+}
+void NoArvoreBinariaAVL::rotacaoDireita() throw(){
+	NoArvoreBinariaAVL* novaRaiz = new NoArvoreBinariaAVL(*(this->esq));
+	novaRaiz->setPtrNoFilho(new NoArvoreBinariaAVL(*this), 1);
+	novaRaiz->dir->esq = this->esq->dir;
+	this->esq->dir = nullptr;
+	this->dir = novaRaiz->dir;
+	this->esq = novaRaiz->esq;
+	this->info = novaRaiz->info;
+	
+
+	this->calcularEquilibrio();
+}
+void NoArvoreBinariaAVL::rotacaoDuplaEsquerda() throw(){
+	this->dir->rotacaoDireita();
+	this->rotacaoEsquerda();
+
+}
+void NoArvoreBinariaAVL::rotacaoDuplaDireita() throw(){
+	this->esq->rotacaoEsquerda();
+	this->rotacaoDireita();
 }
