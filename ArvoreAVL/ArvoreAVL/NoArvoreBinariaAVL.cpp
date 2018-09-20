@@ -111,14 +111,29 @@ char NoArvoreBinariaAVL::inserirVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 		}
 	
 }
-char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
+char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info, NoArvoreBinariaAVL* ant)throw() {
 	if (info == nullptr) 
 		return -1;
 	
 	if (this->isFolha()) {
 		if (*info == *(this->info)) {
 			this->info = nullptr;
-			balancear();
+			/*NoArvoreBinariaAVL* no = this;
+			no = nullptr;*/
+			if (ant != nullptr) {
+				if (*info > *(ant->info)) {
+					ant->dir = nullptr;
+				}
+				if (*info < *(ant->info)) {
+					ant->esq = nullptr;
+				}
+			}
+			else {
+				//árvore está vazia
+				this->info = nullptr;
+			}
+				
+			//balancear();
 			return 1;
 		}
 		else {
@@ -137,7 +152,7 @@ char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 			return -2;
 		}
 		else
-			this->esq->removerVetorOrdem(info);
+			this->esq->removerVetorOrdem(info, this);
 	}
 	if (*info > *(this->info)) {
 		if (this->dir == nullptr) {
@@ -145,7 +160,7 @@ char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 			return -3;
 		}
 		else
-			this->dir->removerVetorOrdem(info);
+			this->dir->removerVetorOrdem(info, this);
 	}
 	
 }
@@ -158,11 +173,12 @@ char NoArvoreBinariaAVL::isVazio() const throw() {
 char NoArvoreBinariaAVL::isFolha() const throw() {
 	return (this->esq == nullptr && this->dir == nullptr);
 }
-char NoArvoreBinariaAVL::haInfo(InfoArvoreBinariaAVL*) const throw() {
+char NoArvoreBinariaAVL::haInfo(InfoArvoreBinariaAVL* info) const throw() {
 	NoArvoreBinariaAVL* noRel = (NoArvoreBinariaAVL*)(this);
 
-	while (1) {
-		
+loop:while (1) {
+		if (noRel == nullptr)
+			return 0;
 		if ((noRel->info ) != nullptr) {
 			if (*(noRel->info ) == *info) {
 				return true;
@@ -170,15 +186,16 @@ char NoArvoreBinariaAVL::haInfo(InfoArvoreBinariaAVL*) const throw() {
 			if (*(noRel->info) > *info) {
 				//ir pro ponteiro de nó i-1
 				noRel = (noRel->esq);
-
+				goto loop;
 			}
 			if (*(noRel->info) < *info) {
 				noRel = (noRel->dir);
+				goto loop;
 			}
 
 		}
 		else {
-			return false;
+			return 0;
 		}
 		
 	}
@@ -201,19 +218,24 @@ InfoArvoreBinariaAVL* NoArvoreBinariaAVL::menorDosMaiores() throw(char*) {
 	NoArvoreBinariaAVL* noAnt = (NoArvoreBinariaAVL*)this;
 	NoArvoreBinariaAVL* noRel = (NoArvoreBinariaAVL*)this->dir;
 	NoArvoreBinariaAVL* noAchado;
+	char passou = 0;
 	while (noRel->esq != nullptr) {
+		passou = 1;
 		noAnt = noRel;
 		noRel = noRel->esq;
 	}
 	if (noRel->dir == nullptr) {
 		noAchado = new NoArvoreBinariaAVL(*noRel);
 		noRel->info = nullptr;
-		noAnt->esq = noRel = nullptr;
+		if(passou)
+			noAnt->esq = noRel = nullptr;
+		else
+			noAnt->dir = noRel = nullptr;
 		return noAchado->info;
 	}
 	else {
 		noAchado = new NoArvoreBinariaAVL(*noRel);
-		noAnt->esq = noRel->dir;
+		noAnt->dir = noRel->dir;
 		noRel->info = nullptr;
 		noRel = nullptr;
 		return noAchado->info;
@@ -223,19 +245,24 @@ InfoArvoreBinariaAVL* NoArvoreBinariaAVL::maiorDosMenores() throw(char*) {
 	NoArvoreBinariaAVL* noAnt = (NoArvoreBinariaAVL*)this;
 	NoArvoreBinariaAVL* noRel = (NoArvoreBinariaAVL*)this->esq;
 	NoArvoreBinariaAVL* noAchado;
+	char passou = 0;
 	while (noRel->dir != nullptr) {
+		passou = 1;
 		noAnt = noRel;
 		noRel = noRel->dir;
 	}
 	if (noRel->esq == nullptr) {
 		noAchado = new NoArvoreBinariaAVL(*noRel);
 		noRel->info = nullptr;
-		noAnt->dir = noRel = nullptr;
+		if(passou)
+			noAnt->dir = noRel = nullptr;
+		else
+			noAnt->esq = noRel = nullptr;
 		return noAchado->info;
 	}
 	else {
 		noAchado = new NoArvoreBinariaAVL(*noRel);
-		noAnt->dir = noRel->esq;
+		noAnt->esq = noRel->esq;
 		noRel->info = nullptr;
 		noRel = nullptr;
 		return noAchado->info;

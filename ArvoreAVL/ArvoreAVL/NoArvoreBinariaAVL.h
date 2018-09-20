@@ -16,7 +16,7 @@ public:
 	void setPtrNoFilho(NoArvoreBinariaAVL*, unsigned char) throw(char*);
 	InfoArvoreBinariaAVL* getPtrInfo(unsigned int) const throw();
 	char inserirVetorOrdem(InfoArvoreBinariaAVL*)throw();
-	char removerVetorOrdem(InfoArvoreBinariaAVL*)throw();
+	char removerVetorOrdem(InfoArvoreBinariaAVL*, NoArvoreBinariaAVL*)throw();
 	char isCheio() const throw();
 	char isVazio() const throw();
 	char isFolha() const throw();

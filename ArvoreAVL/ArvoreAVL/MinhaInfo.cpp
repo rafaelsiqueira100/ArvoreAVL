@@ -8,7 +8,9 @@ MinhaInfo::MinhaInfo(int vlr) {
 MinhaInfo::MinhaInfo(const InfoArvoreBinariaAVL& outra) {
 	new MinhaInfo(((const MinhaInfo&)outra).valor);
 }
-
+ostream& operator<< (ostream& os, const MinhaInfo& info) throw() {
+	return info.print(os);
+}
 ostream& MinhaInfo::print(ostream& os)const throw()  {
 	return os << this->valor;
 }

@@ -11,8 +11,13 @@ ArvoreBinariaAVL::~ArvoreBinariaAVL()
 {
 }
 void ArvoreBinariaAVL::inserir(InfoArvoreBinariaAVL* info) throw(char*) {
+	
 	if (this->raiz == nullptr)
 		raiz = new NoArvoreBinariaAVL();
+	if ((this->raiz->isVazio())) {
+		this->raiz == nullptr;
+		raiz = new NoArvoreBinariaAVL();
+	}
 	this->raiz->inserirVetorOrdem(info);
 
 	this->balancear();
@@ -22,8 +27,8 @@ void ArvoreBinariaAVL::remover(InfoArvoreBinariaAVL* info) throw(char*) {
 		//árvore está vazia
 		throw("Tentativa de remoção em árvore vazia!");
 	}
-	this->raiz->removerVetorOrdem(info);
-	if (this->raiz->isVazio())
+	this->raiz->removerVetorOrdem(info, nullptr);
+	if ((this->raiz->isVazio()))
 		this->raiz == nullptr;
 
 	this->balancear();
