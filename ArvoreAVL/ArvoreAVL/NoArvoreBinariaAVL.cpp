@@ -168,7 +168,7 @@ char NoArvoreBinariaAVL::isCheio() const throw() {
 	return this->info != nullptr;
 }
 char NoArvoreBinariaAVL::isVazio() const throw() {
-	return this->info == nullptr;
+	return (this->info) == nullptr;
 }
 char NoArvoreBinariaAVL::isFolha() const throw() {
 	return (this->esq == nullptr && this->dir == nullptr);

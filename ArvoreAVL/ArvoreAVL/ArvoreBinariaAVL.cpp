@@ -29,7 +29,7 @@ void ArvoreBinariaAVL::remover(InfoArvoreBinariaAVL* info) throw(char*) {
 	}
 	this->raiz->removerVetorOrdem(info, nullptr);
 	if ((this->raiz->isVazio()))
-		this->raiz == nullptr;
+		this->raiz = nullptr;
 
 	this->balancear();
 }
