@@ -152,6 +152,7 @@ char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info, NoArvoreB
 	if (*info == *(this->info)) {
 		//tem que achar info pra por no lugar
 		*(this->info) = *(acharInfoPorLugar());
+		return 2;
 	}
 	if (*info < *(this->info)) {
 		if (this->esq == nullptr) {

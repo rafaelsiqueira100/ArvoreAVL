@@ -5,9 +5,9 @@ MinhaInfo::MinhaInfo() : valor(0) {}
 MinhaInfo::MinhaInfo(int vlr) {
 	this->valor = vlr;
 }
-MinhaInfo::MinhaInfo(const InfoArvoreBinariaAVL& outra) {
-	new MinhaInfo(((const MinhaInfo&)outra).valor);
-}
+MinhaInfo::MinhaInfo(const InfoArvoreBinariaAVL& outra) :
+	MinhaInfo(((const MinhaInfo&)outra).valor)
+{}
 ostream& operator<< (ostream& os, const MinhaInfo& info) throw() {
 	return info.print(os);
 }
@@ -35,6 +35,7 @@ char MinhaInfo::operator<=(const InfoArvoreBinariaAVL& outra)const throw() {
 char MinhaInfo::operator>=(const InfoArvoreBinariaAVL& outra)const throw() {
 	return this->valor >= ((const MinhaInfo&)outra).getValor();
 }
-void MinhaInfo::operator=(const InfoArvoreBinariaAVL& outra)throw() {
+InfoArvoreBinariaAVL& MinhaInfo::operator=(const InfoArvoreBinariaAVL& outra)throw() {
 	valor = (((const MinhaInfo&)outra).valor);
+	return *this;
 }

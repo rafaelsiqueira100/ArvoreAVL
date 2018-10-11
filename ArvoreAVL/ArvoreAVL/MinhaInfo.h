@@ -19,7 +19,7 @@ public:
 	char operator==(const InfoArvoreBinariaAVL&)const throw();
 	char operator<=(const InfoArvoreBinariaAVL&)const throw();
 	char operator>=(const InfoArvoreBinariaAVL&)const throw();
-	void operator=(const InfoArvoreBinariaAVL&)throw();
+	InfoArvoreBinariaAVL& operator=(const InfoArvoreBinariaAVL&)throw();
 	ostream& print(ostream&) const throw() ;
 	
 private:
