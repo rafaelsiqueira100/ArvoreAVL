@@ -12,6 +12,13 @@ NoArvoreBinariaAVL::NoArvoreBinariaAVL()
 
 NoArvoreBinariaAVL::~NoArvoreBinariaAVL()
 {
+	if(this->info != nullptr)
+		delete[] info;
+	if(this->esq != nullptr)
+		delete[] esq;
+	if(this->dir != nullptr)
+		delete[] dir;
+
 }
 NoArvoreBinariaAVL::NoArvoreBinariaAVL(const NoArvoreBinariaAVL& noBase) throw(char*) {
 	this->esq = nullptr;
@@ -171,6 +178,7 @@ char NoArvoreBinariaAVL::isVazio() const throw() {
 	return (this->info) == nullptr;
 }
 char NoArvoreBinariaAVL::isFolha() const throw() {
+	
 	return (this->esq == nullptr && this->dir == nullptr);
 }
 char NoArvoreBinariaAVL::haInfo(InfoArvoreBinariaAVL* info) const throw() {
@@ -350,8 +358,10 @@ char NoArvoreBinariaAVL::getNiveis()const throw() {
 	if (this->dir == nullptr && this->esq != nullptr)
 		return this->esq->getNiveis() + 1;
 	char niveisEsq(0), niveisDir(0);
-	niveisEsq = this->esq->getNiveis();
-	niveisDir = this->dir->getNiveis();
+	if(this->esq != nullptr && this->esq != (NoArvoreBinariaAVL*)0xdddddddddddddddd)
+		niveisEsq = this->esq->getNiveis();
+	if(this->dir != nullptr && this->dir != (NoArvoreBinariaAVL*)0xdddddddddddddddd)
+		niveisDir = this->dir->getNiveis();
 	return niveisEsq > niveisDir ? niveisEsq + 1 : niveisDir + 1;
 }
 char NoArvoreBinariaAVL::getEquilibrio() const throw() {
@@ -401,7 +411,7 @@ void NoArvoreBinariaAVL::rotacaoEsquerda() throw() {
 	this->dir = novaRaiz->dir;
 	this->esq = novaRaiz->esq;
 	this->info = novaRaiz->info;
-
+	//delete novaRaiz;
 	this->calcularEquilibrio();
 
 }
@@ -413,7 +423,7 @@ void NoArvoreBinariaAVL::rotacaoDireita() throw(){
 	this->dir = novaRaiz->dir;
 	this->esq = novaRaiz->esq;
 	this->info = novaRaiz->info;
-	
+	//delete novaRaiz;
 
 	this->calcularEquilibrio();
 }
