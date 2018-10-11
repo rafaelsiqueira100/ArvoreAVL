@@ -10,7 +10,7 @@ ArvoreBinariaAVL::ArvoreBinariaAVL()
 ArvoreBinariaAVL::~ArvoreBinariaAVL()
 {
 	if(this->raiz != nullptr)
-		delete[] raiz;
+		delete raiz;
 }
 void ArvoreBinariaAVL::inserir(InfoArvoreBinariaAVL* info) throw(char*) {
 	

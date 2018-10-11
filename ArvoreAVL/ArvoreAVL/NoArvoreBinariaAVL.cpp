@@ -13,11 +13,11 @@ NoArvoreBinariaAVL::NoArvoreBinariaAVL()
 NoArvoreBinariaAVL::~NoArvoreBinariaAVL()
 {
 	if(this->info != nullptr)
-		delete[] info;
+		delete info;
 	if(this->esq != nullptr)
-		delete[] esq;
+		delete esq;
 	if(this->dir != nullptr)
-		delete[] dir;
+		delete dir;
 
 }
 NoArvoreBinariaAVL::NoArvoreBinariaAVL(const NoArvoreBinariaAVL& noBase) throw(char*) {
