@@ -12,7 +12,7 @@ ArvoreBinariaAVL::~ArvoreBinariaAVL()
 	if(this->raiz != nullptr)
 		delete raiz;
 }
-void ArvoreBinariaAVL::inserir(const InfoArvoreBinariaAVL& info) throw(char*) {
+void ArvoreBinariaAVL::inserir( InfoArvoreBinariaAVL* info) throw(char*) {
 	
 	if (this->raiz == nullptr)
 		raiz = new NoArvoreBinariaAVL();
@@ -24,13 +24,12 @@ void ArvoreBinariaAVL::inserir(const InfoArvoreBinariaAVL& info) throw(char*) {
 
 	this->balancear();
 }
-void ArvoreBinariaAVL::remover(const InfoArvoreBinariaAVL& info) throw(char*) {
+void ArvoreBinariaAVL::remover(InfoArvoreBinariaAVL* info) throw(char*) {
 	if (this->raiz == nullptr) {
 		//árvore está vazia
 		throw("Tentativa de remoção em árvore vazia!");
 	}
-	NoArvoreBinariaAVL exemplo;
-	this->raiz->removerVetorOrdem(info, exemplo, 1);
+	this->raiz->removerVetorOrdem(info, nullptr);
 	if ((this->raiz->isVazio()))
 		this->raiz = nullptr;
 

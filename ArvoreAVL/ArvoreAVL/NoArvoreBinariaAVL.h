@@ -12,8 +12,8 @@ public:
 	~NoArvoreBinariaAVL();
 	NoArvoreBinariaAVL(const NoArvoreBinariaAVL&) throw(char*);
 	friend ostream& operator<< (ostream&, const NoArvoreBinariaAVL&) throw();
-	char inserirVetorOrdem(const InfoArvoreBinariaAVL&)throw();
-	char removerVetorOrdem(const InfoArvoreBinariaAVL&, const NoArvoreBinariaAVL&, char)throw();
+	char inserirVetorOrdem(InfoArvoreBinariaAVL*)throw();
+	char removerVetorOrdem(InfoArvoreBinariaAVL*, NoArvoreBinariaAVL*)throw();
 	char isCheio() const throw();
 	char isVazio() const throw();
 	char isFolha() const throw();
