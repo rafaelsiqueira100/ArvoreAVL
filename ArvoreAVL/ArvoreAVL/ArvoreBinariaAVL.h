@@ -10,10 +10,10 @@ class ArvoreBinariaAVL
 public:
 	ArvoreBinariaAVL();
 	~ArvoreBinariaAVL();
-	void inserir(InfoArvoreBinariaAVL*) throw(char*);
-	void remover(InfoArvoreBinariaAVL*) throw(char*);
+	void inserir(const InfoArvoreBinariaAVL&) throw(char*);
+	void remover(const InfoArvoreBinariaAVL&) throw(char*);
 	friend ostream& operator<< (ostream&, const ArvoreBinariaAVL&) throw();
-	char haInfo(InfoArvoreBinariaAVL*);
+	char haInfo(const InfoArvoreBinariaAVL&);
 	
 private:
 	NoArvoreBinariaAVL* raiz;

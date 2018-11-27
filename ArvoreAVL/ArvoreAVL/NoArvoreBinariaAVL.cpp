@@ -80,26 +80,27 @@ void NoArvoreBinariaAVL::setPtrNoFilho(NoArvoreBinariaAVL* novoNo, unsigned char
 InfoArvoreBinariaAVL*  NoArvoreBinariaAVL::getPtrInfo(unsigned int indInfo) const throw() {
 	return this->info;
 }
-char NoArvoreBinariaAVL::inserirVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
-	if (info == nullptr)
-		return -1;
+char NoArvoreBinariaAVL::inserirVetorOrdem(const InfoArvoreBinariaAVL& info)throw() {
+	//InfoArvoreBinariaAVL* info = (InfoArvoreBinariaAVL*) &valor;
+	/*if (info == nullptr)
+		return -1;*/
 	//supondo árvore está ordenada
 	
 		if ((this->info ) != nullptr) {
-			if (*info < *(this->info)) {
+			if (info < *(this->info)) {
 				if (this->esq == nullptr) {
 					this->esq = new NoArvoreBinariaAVL();
-					this->esq->info = info;
+					this->esq->info = (InfoArvoreBinariaAVL*)&info;
 					balancear();
 					return 1;
 				}
 				else
 					this->esq->inserirVetorOrdem(info);
 			}
-			if (*info > *(this->info)) {
+			if (info > *(this->info)) {
 				if (this->dir == nullptr) {
 					this->dir = new NoArvoreBinariaAVL();
-					this->dir->info = info;
+					this->dir->info = (InfoArvoreBinariaAVL*)&info;
 					balancear();
 					return 1;
 				}
@@ -107,32 +108,32 @@ char NoArvoreBinariaAVL::inserirVetorOrdem(InfoArvoreBinariaAVL* info)throw() {
 					this->dir->inserirVetorOrdem(info);
 
 			}
-			if (*(this->info) == *info) {
+			if (*(this->info) == info) {
 				return 0;
 			}
 		}
 		else {
-			this->info = /*new InfoArvoreEnaria(**/info/*)*/;
+			this->info = (InfoArvoreBinariaAVL*)&info;
 			balancear();
 			return 1;
 		}
 	
 }
-char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info, NoArvoreBinariaAVL* ant)throw() {
-	if (info == nullptr) 
+char NoArvoreBinariaAVL::removerVetorOrdem(const InfoArvoreBinariaAVL& info,const NoArvoreBinariaAVL& ant, char paiNulo)throw() {
+	/*if (info == nullptr) 
 		return -1;
-	
+	*/
 	if (this->isFolha()) {
-		if (*info == *(this->info)) {
+		if (info == *(this->info)) {
 			this->info = nullptr;
 			/*NoArvoreBinariaAVL* no = this;
 			no = nullptr;*/
-			if (ant != nullptr) {
-				if (*info > *(ant->info)) {
-					ant->dir = nullptr;
+			if (!paiNulo) {
+				if (info > *(ant.info)) {
+					((NoArvoreBinariaAVL&)ant).dir = nullptr;
 				}
-				if (*info < *(ant->info)) {
-					ant->esq = nullptr;
+				if (info < *(ant.info)) {
+					((NoArvoreBinariaAVL&)ant).esq = nullptr;
 				}
 			}
 			else {
@@ -149,26 +150,26 @@ char NoArvoreBinariaAVL::removerVetorOrdem(InfoArvoreBinariaAVL* info, NoArvoreB
 		}
 	}
 	//se o fluxo de execução chegou aqui, então não é folha
-	if (*info == *(this->info)) {
+	if (info == *(this->info)) {
 		//tem que achar info pra por no lugar
 		*(this->info) = *(acharInfoPorLugar());
 		return 2;
 	}
-	if (*info < *(this->info)) {
+	if (info < *(this->info)) {
 		if (this->esq == nullptr) {
 			balancear();
 			return -2;
 		}
 		else
-			this->esq->removerVetorOrdem(info, this);
+			this->esq->removerVetorOrdem(info, *this, 0);
 	}
-	if (*info > *(this->info)) {
+	if (info > *(this->info)) {
 		if (this->dir == nullptr) {
 			balancear();
 			return -3;
 		}
 		else
-			this->dir->removerVetorOrdem(info, this);
+			this->dir->removerVetorOrdem(info, *this, 0);
 	}
 	
 }
@@ -182,7 +183,8 @@ char NoArvoreBinariaAVL::isFolha() const throw() {
 	
 	return (this->esq == nullptr && this->dir == nullptr);
 }
-char NoArvoreBinariaAVL::haInfo(InfoArvoreBinariaAVL* info) const throw() {
+char NoArvoreBinariaAVL::haInfo(const InfoArvoreBinariaAVL& valor) const throw() {
+	InfoArvoreBinariaAVL* info = (InfoArvoreBinariaAVL*)(&valor);
 	NoArvoreBinariaAVL* noRel = (NoArvoreBinariaAVL*)(this);
 
 loop:while (1) {

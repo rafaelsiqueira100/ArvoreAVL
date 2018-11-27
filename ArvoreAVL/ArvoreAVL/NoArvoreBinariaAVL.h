@@ -12,15 +12,12 @@ public:
 	~NoArvoreBinariaAVL();
 	NoArvoreBinariaAVL(const NoArvoreBinariaAVL&) throw(char*);
 	friend ostream& operator<< (ostream&, const NoArvoreBinariaAVL&) throw();
-	NoArvoreBinariaAVL* getPtrNoFilho(unsigned char) const throw(char*);
-	void setPtrNoFilho(NoArvoreBinariaAVL*, unsigned char) throw(char*);
-	InfoArvoreBinariaAVL* getPtrInfo(unsigned int) const throw();
-	char inserirVetorOrdem(InfoArvoreBinariaAVL*)throw();
-	char removerVetorOrdem(InfoArvoreBinariaAVL*, NoArvoreBinariaAVL*)throw();
+	char inserirVetorOrdem(const InfoArvoreBinariaAVL&)throw();
+	char removerVetorOrdem(const InfoArvoreBinariaAVL&, const NoArvoreBinariaAVL&, char)throw();
 	char isCheio() const throw();
 	char isVazio() const throw();
 	char isFolha() const throw();
-	char haInfo(InfoArvoreBinariaAVL*) const throw();
+	char haInfo(const InfoArvoreBinariaAVL&) const throw();
 	char getEquilibrio() const throw();
 	char getNiveis() const throw();
 	void balancear() throw();
@@ -30,6 +27,9 @@ private:
 	InfoArvoreBinariaAVL* info;
 	NoArvoreBinariaAVL* esq;
 	NoArvoreBinariaAVL* dir;
+	NoArvoreBinariaAVL* getPtrNoFilho(unsigned char) const throw(char*);
+	InfoArvoreBinariaAVL* getPtrInfo(unsigned int) const throw();
+	void setPtrNoFilho(NoArvoreBinariaAVL*, unsigned char) throw(char*);
 	InfoArvoreBinariaAVL* acharInfoPorLugar() throw(char*);
 	char equilibrio;
 	char calcularEquilibrio() throw();
